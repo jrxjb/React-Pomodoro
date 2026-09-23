@@ -1,64 +1,97 @@
-import { useState,useEffect ,useRef} from 'react'
-
+import { useState,useRef,useMemo} from 'react'
+import Pomodoro from './components/Pomodoro'
 import './App.css'
 
 function App() {
 const ref = useRef(false)
 const idRef = useRef<any>(null)
-const [time,setTime] = useState<number>(60)
-const [value,setValue]=useState<boolean>(false)
+const [time,setTime] = useState<number>(1500)
 
-const stop = ():void=>{
+
+const {m,s}=useMemo(()=>{
+ let sx:string = ''
+ let mx:string = ''
+ if(time>=60){
+          const minutos =  time/60
+          const minutosSinDecimales = Math.trunc(time/60)
+          const segundos =  minutos - minutosSinDecimales 
+          const segundos60 = Math.trunc(segundos*60)
+         
+          if((segundos60)<10){
+          sx=`0${segundos60}`}
+          else{ 
+            sx=`${0}`
+            sx=`${Math.trunc(segundos*60)}`}
+            mx=`${minutosSinDecimales}`
+         
+        }
+        else{
+          if(time<10){
+          mx=`${0}`
+          sx=`0${time-1}`
+          }else{
+          mx=`${0}`
+          sx=`${time-1}`
+          }}
+return {m:mx,s:sx}
+},[time])
+
+
+
+
+const cronometro=():void=>{
+        idRef.current= setInterval(()=>{
+        if(!idRef){
+          return;
+        }
+        setTime((prev)=>{
+          if(prev<1){fin()}
+          return prev - 1
+      }
+    )
+      },30)
+
+
+}
+
+const fin=():void=>{
+     if (idRef.current) {
+        clearInterval(idRef.current)
+      }
+      idRef.current=null
+   
+}
+
+const reiniciar = ():void=>{
        if (idRef.current) {
         clearInterval(idRef.current)
       }
       idRef.current=null
-      setValue(false)
-      setTime(0)
-      ref.current=false
+      setTime(1500)
+
 }
 
-useEffect(()=>{
-
-
-
-
-
-return 
-},[value])
 
 const pausa =():void=>{
-   ref.current=false
+
      if (idRef.current) {
         clearInterval(idRef.current)
+           idRef.current=false
       }
 }
+
+
 const start=():void=>{
   if(ref.current)return
-        ref.current=true
-        idRef.current= setInterval(()=>{
-        if(ref.current===false){
-          return;
-        }
-        setTime(prev => prev - 1)
-      },1000)
-
-
+  else{
+ cronometro()
+  }
+ 
 }
 
   return (
     <>
-    <p>Promodoro</p>
-    <button onClick={start}>
-      Iniciar 
-    </button>
-      <button onClick={stop}>
-   stop
-    </button>
-          <button onClick={pausa}>
-   pausa
-    </button>
-    {time}
+    <Pomodoro start={start} reiniciar={reiniciar}  pausa={pausa} time={time} m={m} s={s}/>
     </>
   )
 }
