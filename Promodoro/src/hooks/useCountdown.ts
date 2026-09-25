@@ -45,7 +45,7 @@ const cronometro=():void=>{
           return prev - 1
       }
     )
-      },30)
+      },1000)
 
 
 }

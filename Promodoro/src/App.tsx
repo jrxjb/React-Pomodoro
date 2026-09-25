@@ -4,11 +4,11 @@ import './App.css'
 
 function App() {
 
-const {m,s,reiniciar,pausa,start,time}=useCountdown()
+const {m,s,reiniciar,pausa,start}=useCountdown()
 
   return (
     <>
-    <Pomodoro start={start} reiniciar={reiniciar}  pausa={pausa} time={time} m={m} s={s}/>
+    <Pomodoro start={start} reiniciar={reiniciar}  pausa={pausa} m={m} s={s}/>
     </>
   )
 }

@@ -3,12 +3,12 @@ interface pomodoro{
     start:()=>void;
     reiniciar:()=>void;
     pausa:()=>void;
-    time:number;
+
     m:string;
     s:string;
 }
 
-export default function Pomodoro({start,reiniciar,pausa,time,m,s}:pomodoro){
+export default function Pomodoro({start,reiniciar,pausa,m,s}:pomodoro){
     
     return<>
     <p>Pomodoro</p>
@@ -21,7 +21,6 @@ export default function Pomodoro({start,reiniciar,pausa,time,m,s}:pomodoro){
           <button onClick={pausa}>
    pausa
     </button>
-    {time}
     <p>pantalla</p>
     <div> {m}:{s}</div>
     
