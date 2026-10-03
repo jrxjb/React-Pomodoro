@@ -1,15 +1,22 @@
 import useCountdown from './hooks/useCountdown'
 import Pomodoro from './components/Pomodoro'
 import './App.css'
-
+import ThemeContext from './context/theme-context'
+import { useState} from 'react'
 function App() {
 
-const {m,s,reiniciar,pausa,start}=useCountdown()
-
+const {m,s,reiniciar,pausa,start,handleInput,setMinutosInput,minutosInput}=useCountdown()
+const [dark,setDark]= useState<boolean>(false)
   return (
-    <>
-    <Pomodoro start={start} reiniciar={reiniciar}  pausa={pausa} m={m} s={s}/>
-    </>
+    < ThemeContext.Provider value={{ dark, setDark }}>  
+    <Pomodoro start={start} reiniciar={reiniciar}
+      pausa={pausa} m={m} s={s} 
+      handleInput={handleInput}
+      setMinutosInput={setMinutosInput}
+      minutosInput={minutosInput}
+      />
+    </ ThemeContext.Provider>
+    
   )
 }
 

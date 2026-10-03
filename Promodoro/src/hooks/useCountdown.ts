@@ -1,9 +1,12 @@
-import { useState,useRef,useMemo } from 'react'
+import { useState,useRef,useMemo,type FormEvent } from 'react'
+
+
+
 export default function useCountdown(){
 const ref = useRef(false)
 const idRef = useRef<any>(null)
 const [time,setTime] = useState<number>(1500)
-
+const[minutosInput,setMinutosInput]=useState<any>('')
 const {m,s}=useMemo(()=>{
  let sx:string = ''
  let mx:string = ''
@@ -82,10 +85,25 @@ const start=():void=>{
   else{
  cronometro()
   }
- 
+
+  
 }
 
-return {m,s,reiniciar,pausa,start, time }
+const handleInput = (e: FormEvent<HTMLFormElement>): void => {
+e.preventDefault()
+if(!minutosInput.trim())return
+const minutosIsNaN = parseInt(minutosInput)
+if (isNaN(minutosIsNaN))return
+if(minutosIsNaN>25)return 
+const FistInputValue = minutosIsNaN*60 
+
+ clearInterval(idRef.current)
+ idRef.current=null
+ setTime(FistInputValue)
+}
+
+
+return {m,s,reiniciar,pausa,start, time ,handleInput,setMinutosInput,minutosInput}
 
 
 }

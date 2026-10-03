@@ -1,6 +1,12 @@
-import {createContext,useContext} from 'react'
+import {createContext, type Dispatch, type SetStateAction} from 'react'
 
-const ThemeContext = createContext({
+interface valueDark{
+    dark:boolean;
+    setDark:Dispatch<SetStateAction<boolean>>;
+}
+const ThemeContext = createContext<valueDark>({
     dark:false,
     setDark:()=>{}
 })
+
+export default ThemeContext;
