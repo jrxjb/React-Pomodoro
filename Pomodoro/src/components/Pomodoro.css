@@ -1,0 +1,34 @@
+header{
+    display:flex;
+    justify-content:flex-end;
+}
+
+.principal{
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center; 
+    align-items:center;
+}
+
+.timer{
+    display:flex;
+    flex-direction:column;
+    justify-content:center; 
+    align-items:center;
+
+    height:50px;
+    width:100px;
+    margin:10px;
+    padding:10px;
+
+    background-color:grey;
+    border-radius:10%;
+}
+
+form section{
+     display:flex;
+    flex-direction:row;
+    justify-content:center; 
+    align-items:center;
+} 
