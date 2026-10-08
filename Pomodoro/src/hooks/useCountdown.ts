@@ -7,7 +7,8 @@ const ref = useRef(false)
 const idRef = useRef<any>(null)
 const [time,setTime] = useState<number>(1500)
 const[minutosInput,setMinutosInput]=useState<any>('')
-const {m,s}=useMemo(()=>{
+const[maxTimerBar,SetMaxTimerBar] = useState<number>(1500)
+const {m,s,percent}=useMemo(()=>{
  let sx:string = ''
  let mx:string = ''
  if(time>=60){
@@ -30,7 +31,8 @@ const {m,s}=useMemo(()=>{
           mx=`${0}`
           sx=`${time}`
           }}
-return {m:mx,s:sx}
+       const percent = Math.floor((time / maxTimerBar) * 100);
+return {m:mx,s:sx,percent:percent}
 },[time])
 
 
@@ -55,6 +57,7 @@ const reiniciar = ():void=>{
         clearInterval(idRef.current)
       }
       idRef.current=null
+      SetMaxTimerBar(1500)
       setTime(1500)
 
 }
@@ -64,7 +67,7 @@ const pausa =():void=>{
      ref.current =false
      if (idRef.current) {
         clearInterval(idRef.current)
-           idRef.current=false
+           idRef.current=null
       }
 }
 
@@ -72,6 +75,10 @@ const pausa =():void=>{
 const start=():void=>{
   if(ref.current)return
   else{
+  if(maxTimerBar<=0){
+     SetMaxTimerBar(1500)
+  }
+
  cronometro()
   }
 
@@ -83,11 +90,12 @@ e.preventDefault()
 if(!minutosInput.trim())return
 const minutosIsNaN = parseInt(minutosInput)
 if (isNaN(minutosIsNaN))return
-//if(minutosIsNaN>25)return 
+
 const FistInputValue = minutosIsNaN*60 
 
  clearInterval(idRef.current)
  idRef.current=null
+ SetMaxTimerBar(FistInputValue)
  setTime(FistInputValue)
 }
 
@@ -104,7 +112,7 @@ useEffect(()=>{
 useEffect(()=>()=>{ clearInterval(idRef.current) },[])
 
 
-return {m,s,reiniciar,pausa,start, time ,handleInput,setMinutosInput,minutosInput}
+return {m,s,reiniciar,pausa,start, time ,handleInput,setMinutosInput,minutosInput,maxTimerBar,percent}
 
 
 }

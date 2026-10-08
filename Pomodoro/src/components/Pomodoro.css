@@ -32,3 +32,19 @@ form section{
     justify-content:center; 
     align-items:center;
 } 
+
+.progress-bar {
+  width: 250px;            
+  height: 12px;           
+  background-color: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.progress-fill{
+    background-color:aqua;
+    border:solid 1px black;
+    height:100%;
+    transition: width 0.3s ease;
+}

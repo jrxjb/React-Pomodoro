@@ -11,9 +11,12 @@ interface pomodoro{
     m:string;
     s:string;
     minutosInput:number;
+    time:number;
+    maxTimerBar:number;
+    percent:number;
 }
 
-export default function Pomodoro({start,reiniciar,pausa,m,s,handleInput,setMinutosInput,minutosInput}:pomodoro){
+export default function Pomodoro({percent,start,reiniciar,pausa,m,s,handleInput,setMinutosInput,minutosInput,time,maxTimerBar}:pomodoro){
 const { dark, setDark } = useContext(ThemeContext)
 const idEnterValue = useId()
 
@@ -30,28 +33,33 @@ setMinutosInput(e.target.value)
           </button>
         </header>
         <div className='principal'>
-        <p >Pomodoro Technique</p>
-        <div className="timer"> {m}:{s}</div>
-        <section className='buttons-controls'>
-          <button onClick={start}>
-            Start 
-          </button>
-          <button onClick={pausa}>
-            Pausa
-          </button>
-          <button onClick={reiniciar}>
-            Reset
-          </button>
-        </section>
-
-        <form onSubmit={handleInput} >
-            <label htmlFor={idEnterValue}>Set time (minutes) </label>
-          <section>
-            <input id={idEnterValue} value={minutosInput} onChange={sentInput} type="number" placeholder="15"/>
-            <button type="submit" >Sent</button>
+          <p >Pomodoro Technique</p>
+          <div className="timer"> {m}:{s}</div>
+          <section className='buttons-controls'>
+            <button onClick={start}>
+              Start 
+            </button>
+            <button onClick={pausa}>
+              Pausa
+            </button>
+            <button onClick={reiniciar}>
+              Reset
+            </button>
           </section>
-      </form>
+
+          <form onSubmit={handleInput} >
+              <label htmlFor={idEnterValue}>Set time (minutes) </label>
+            <section>
+              <input id={idEnterValue} value={minutosInput} onChange={sentInput} type="number" placeholder="15"/>
+              <button type="submit" >Sent</button>
+            </section>
+        </form>
+        <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${percent}%` }} />
+        </div>
+        {time===0? "Break time!":""}
       </div>
+       
     </div>
     </>
 }
