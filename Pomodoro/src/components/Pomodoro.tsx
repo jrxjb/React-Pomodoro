@@ -12,11 +12,10 @@ interface pomodoro{
     s:string;
     minutosInput:number;
     time:number;
-    maxTimerBar:number;
     percent:number;
 }
 
-export default function Pomodoro({percent,start,reiniciar,pausa,m,s,handleInput,setMinutosInput,minutosInput,time,maxTimerBar}:pomodoro){
+export default function Pomodoro({percent,start,reiniciar,pausa,m,s,handleInput,setMinutosInput,minutosInput,time}:pomodoro){
 const { dark, setDark } = useContext(ThemeContext)
 const idEnterValue = useId()
 

@@ -5,7 +5,7 @@ import ThemeContext from './context/theme-context'
 import { useState} from 'react'
 function App() {
 
-const {percent,m,s,reiniciar,pausa,start,handleInput,setMinutosInput,minutosInput,time,maxTimerBar}=useCountdown()
+const {percent,m,s,reiniciar,pausa,start,handleInput,setMinutosInput,minutosInput,time}=useCountdown()
 const [dark,setDark]= useState<boolean>(false)
   return (
     < ThemeContext.Provider value={{ dark, setDark }}>  
@@ -15,7 +15,6 @@ const [dark,setDark]= useState<boolean>(false)
       setMinutosInput={setMinutosInput}
       minutosInput={minutosInput}
       time={time} 
-      maxTimerBar={maxTimerBar}
       percent={percent}
       />
 

@@ -33,7 +33,7 @@ const {m,s,percent}=useMemo(()=>{
           }}
        const percent = Math.floor((time / maxTimerBar) * 100);
 return {m:mx,s:sx,percent:percent}
-},[time])
+},[time,maxTimerBar])
 
 
 
@@ -112,7 +112,7 @@ useEffect(()=>{
 useEffect(()=>()=>{ clearInterval(idRef.current) },[])
 
 
-return {m,s,reiniciar,pausa,start, time ,handleInput,setMinutosInput,minutosInput,maxTimerBar,percent}
+return {m,s,reiniciar,pausa,start, time ,handleInput,setMinutosInput,minutosInput,percent}
 
 
 }
